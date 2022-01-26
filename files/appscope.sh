@@ -1,0 +1,6 @@
+SCOPE_HOME=/opt/scope
+LD_PRELOAD=/opt/scope/libscope.so
+PATH=$PATH:/opt/scope
+SCOPE_CRIBL_NO_BREAKER=true
+
+export SCOPE_HOME LD_PRELOAD PATH SCOPE_CRIBL_NO_BREAKER

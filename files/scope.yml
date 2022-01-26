@@ -1,0 +1,42 @@
+metric:
+  enable: true
+  format:
+    type: statsd
+    statsdprefix:
+    statsdmaxlen: 512
+    verbosity : 4
+  transport:
+    type: file
+    path: '/var/log/appscope/metrics.log'
+    buffer: line
+event:
+  enable: true
+  format:
+    type: ndjson
+    maxeventpersec: 10000
+    enhancefs: true
+  watch:
+    - type: console
+      name: (stdout)|(stderr) # matches the output stream
+      value: .*               # matches data written
+  transport:
+    type: file
+    path: '/var/log/appscope/events.log'
+    buffer: line
+libscope:
+  configevent: true
+  summaryperiod : 10
+  commanddir : '/tmp'
+  log:
+    level: warning
+    transport:
+      type: file
+      path: '/var/log/appscope/appscope.log'
+      buffer: line
+cribl:
+  enable: false
+tags:
+  user: $USER
+  host: $HOSTNAME
+protocol:
+custom:

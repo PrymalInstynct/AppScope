@@ -1,0 +1,35 @@
+---
+- name: Install AppScope
+  unarchive:
+    src: scope-x86_64.tgz
+    dest: /opt/
+    owner: root
+    group: root
+
+- name: Configure AppScope
+  copy:
+    src: scope.yml
+    dest: /opt/scope/scope.yml
+    owner: root
+    group: root
+    mode: '0640'
+
+- name: Create AppScope Logging Directory
+  file:
+    path: /var/log/appscope/
+    state: directory
+    owner: root
+    group: root
+    mode: '0750'
+
+- name: Enable Splunk user to read AppScope Log files
+  command: setfacl -Rm u:splunk:rx /var/log/appscope
+  changed_when: no
+
+- name: Set AppScope to start with each Bash session
+  copy:
+    src: appscope.sh
+    dest: /etc/profile.d/
+    owner: root
+    group: root
+    mode: '0644'
