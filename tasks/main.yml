@@ -12,7 +12,7 @@
     dest: /opt/scope/scope.yml
     owner: root
     group: root
-    mode: '0640'
+    mode: '0644'
 
 - name: Create AppScope Logging Directory
   file:
@@ -20,7 +20,7 @@
     state: directory
     owner: root
     group: root
-    mode: '0750'
+    mode: '0755'
 
 - name: Enable Splunk user to read AppScope Log files
   command: setfacl -Rm u:splunk:rx /var/log/appscope

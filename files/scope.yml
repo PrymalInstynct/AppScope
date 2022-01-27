@@ -1,14 +1,5 @@
 metric:
-  enable: true
-  format:
-    type: statsd
-    statsdprefix:
-    statsdmaxlen: 512
-    verbosity : 4
-  transport:
-    type: file
-    path: '/var/log/appscope/metrics.log'
-    buffer: line
+  enable: false
 event:
   enable: true
   format:
@@ -37,6 +28,6 @@ cribl:
   enable: false
 tags:
   user: $USER
-  host: $HOSTNAME
+  cwd: $PWD
 protocol:
 custom:
