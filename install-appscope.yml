@@ -1,5 +1,10 @@
 ---
 - hosts: all
   become: yes
+  vars_prompt:
+    - name: appscope_input
+      prompt: 'What version of appscope to intall (eg: latest, v0.8.1)'
+      private: no
+
   roles:
     - AppScope

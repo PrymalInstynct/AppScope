@@ -1,8 +1,26 @@
 ---
-- name: Install AppScope
+- name: Determine latest release of AppScope
+  shell: "curl -s https://github.com/criblio/appscope/releases | grep -P 'href.*scope-x86_64.tgz' | grep -Pv '\\wc\\d' | grep -v md5 | cut -d '/' -f6 | head -n1"
+  args:
+    warn: no
+  register: appscope_latest
+  changed_when: no
+
+- name: Setting appscope version (Part 1)
+  set_fact:
+    appscope_version: "{{ appscope_latest.stdout }}"
+  when: appscope_input == "latest"
+
+- name: Setting appscope version (Part 2)
+  set_fact:
+    appscope_version: "{{ appscope_input }}"
+  when: appscope_input != "latest"
+
+- name: "Download and unarchive AppScope release version {{ appscope_version }}"
   unarchive:
-    src: scope-x86_64.tgz
+    src: 'https://github.com/criblio/appscope/releases/download/{{ appscope_version }}/scope-x86_64.tgz'
     dest: /opt/
+    remote_src: yes
     owner: root
     group: root
 
